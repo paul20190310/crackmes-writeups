@@ -2,7 +2,7 @@
 
 ## Overview
 
-After execute this crackeme file, asking for an input to verify whether it is correct.  When I casually enter 123456, it outputs `FIMOZ OWNER ACCES DENIED!!!!` and then continues to ask for the next input.
+After execute this crackeme file, asking for an input to verify whether it is correct.  When I casually enter `123456`, it outputs `FIMOZ OWNER ACCES DENIED!!!!` and then continues to ask for the next input.
 
 ```bash
 > cracksme.exe
@@ -15,7 +15,7 @@ Our GOAL is to find a input that makes it correct.
 
 ## Analysis
 
-Open the file in **IDA pro 7.5** to see how the code is working.  When I opened it, I pressed F5 to decompile the program, and I found that there was a infinite loop responsible for the whole input and output process.
+Open the file in **IDA pro 7.5** to see how the code is working. After opening it, I pressed **F5** to decompile the program, and I found an infinite loop responsible for handling the input and output process.
 
 This decompiled code snippet looks like:
 
@@ -87,9 +87,9 @@ LABEL_20:
 }
 ```
 
-Dynamic analysis executed this program, and I found that the last if-else statement in this code snippet would output `FIMOZ OWNER ACCES DENIED!!!!`, and the first if condition is to check whether the input is `123`.
+Through dynamic analysis, I found that the last `if-else` statement in this code snippet outputs `FIMOZ OWNER ACCES DENIED!!!!`, and the first `if` condition checks whether the input is `123`.
 
-So I want to avoid letting the program execute until the last if-else statement.  I noticed that in the middle of this code snippet, there is a `break` statement.  I think I should try to arrive here to exit this infinite loop and avoid output errors.
+To prevent the program from executing the last `if-else` statement, I aimed to meet the condition for the `break` statement, which would exit the infinite loop and avoid the error output.
 
 ```C
 v13 = Size;
@@ -98,11 +98,9 @@ if ( (void *)Size == v4 && !memcmp(v10, v9, Size) )
 v14 = Buf1;
 ```
 
-When I dynamically analyzed and checked this if condition, I found that `v10` is my input, and my input must be consistent with the `v9` string to meet the condition.
+During dynamic analysis, I noticed that in this `if` condition, `v10` represents my input, and my input must match the string `v9` to satisfy the condition.
 
-In debug mode, before reaching the line before the if statement, I used IDA pro's **hex dump** to check what the string value of `v9` is.
-
-`v9` points to 0x78870FF7D0 in my program, and the value at memory address 0x78870FF7D0 is "crackmeYG".  So when my input is `crackmeYG`, it will meet the if condition of the `break` statement.
+Using IDA Pro's **Hex Dump** feature, I checked the value of `v9`. It points to the memory address `0x78870FF7D0`, where the value is "crackmeYG".  So, when my input is `crackmeYG`, the `if` condition of the `break` statement will be satisfied.
 
 ```text
 00000078870FF7B0  45 6E 74 65 72 3A 20 00  00 00 00 00 00 00 00 00  Enter: .........

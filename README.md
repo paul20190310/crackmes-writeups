@@ -2,7 +2,7 @@
 
 My writeups for crackmes.one.
 
-I divide the difficulty into three levels.  Suppose the difficulty is $d$
+I divide the difficulty into three levels.  Suppose the difficulty is $d$.
 
 | level | difficulty |
 | --- | --- |
