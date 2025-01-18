@@ -14,7 +14,7 @@ I divide the difficulty into three levels.  Suppose the difficulty is $d$
 
 ## Medium
 
-| Name | Author | Language | Platform | Difficulty | solution |
+| Name | Author | Language | Platform | Difficulty | Solution |
 | --- | --- | --- | --- | --- | --- |
 | [crypted string crackme][m1_link] | SUSPEKT | C/C++ | Windows | 2.5 | [Link][m1_solution_link] |
 
